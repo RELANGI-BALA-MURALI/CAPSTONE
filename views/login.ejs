@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-image: linear-gradient(270deg, #e43f55 0%, #a765c5 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    } 
+    .login-container {
+        background-color: #202124;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        width: 300px;
+    }
+
+    .login-container h2 {
+        text-align: center;
+        color: white; /* Set font color to white */
+    }
+
+    .login-container form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .login-container label,
+    .login-container input {
+        margin: 10px 0;
+    }
+
+    .login-container input {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+    .login-container button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    .login-container button:hover {
+        background-color: #45a049;
+    }
+
+    /* Additional styling for error messages */
+    #error-message {
+        color: white;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    /* Styling for the link to sign up */
+    .login-container a {
+        color: white;
+    }
+</style>
+</head>
+<body>
+    <div class="login-container">
+        <form name="loginForm" onsubmit="return validateLoginForm()" action="/loginsubmit" method="post">
+            <h2>Login</h2>
+            <div class="input-box">
+                <input type="email" id="email" name="Enteremail" placeholder="Email" required />
+            </div>
+            <div class="input-box">
+                <input type="password" id="password" name="Password" placeholder="Password" required />
+            </div>
+            <button type="submit">Log In</button>
+            <p id="error-message"></p>
+            <% if (typeof error !== 'undefined') { %>
+                <p><%= error %></p>
+              <% } %>
+        </form>
+        <p>Don't have an account? <a href="/signup">Sign Up</a></p>
+    </div>
+    <script>
+        function validateLoginForm() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const commonPasswords = ['password', '123456', 'qwerty']; // Add more common passwords
+            const MIN_PASSWORD_LENGTH = 8;
+    
+            // Basic validation: Check if email and password are not empty
+            if (email.trim() === '' || password.trim() === '') {
+                errorMessage.textContent = 'Email and password are required.';
+                return false; // Prevent form submission
+            }
+    
+            // Email format validation
+            if (!emailPattern.test(email)) {
+                errorMessage.textContent = 'Enter a valid email address.';
+                return false;
+            }
+    
+            // Password length validation
+            if (password.length < MIN_PASSWORD_LENGTH) {
+                errorMessage.textContent = `Password must be at least ${MIN_PASSWORD_LENGTH} characters long.`;
+                return false;
+            }
+    
+            // Common password check
+            if (commonPasswords.includes(password.toLowerCase())) {
+                errorMessage.textContent = 'Please choose a stronger password.';
+                return false;
+            }
+    
+           
+            return true;
+        }
+    </script>
+    
+</body>
+</html>

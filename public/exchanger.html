@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crypto Price Checker</title>
+     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        #background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 5px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        label {
+            font-weight: bold;
+        }
+        select, button {
+            font-size: 16px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #crypto-price {
+            margin-top: 0rem;
+            padding-left: 60px;
+            padding-right: 50px;
+            font-size: 18px;
+            padding: 1rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 5px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        header{
+            color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <video id="background-video" autoplay loop muted>
+        <source src="crypto.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <header>
+        <h1>Crypto Price Checker</h1>
+    </header>
+    <div id="crypto-price">
+        <!-- Crypto price will be displayed here -->
+    </div>
+    <form id="price-form">
+        <label for="crypto-symbol">Select Crypto Symbol:</label>
+        <select id="crypto-symbol" name="crypto-symbol">
+            <option value="bitcoin">Bitcoin</option>
+            <option value="ethereum">Ethereum</option>
+            <option value="ripple">Ripple</option>
+            <option value="cardano">Cardano</option>
+            <option value="solana">Solana</option>
+            <option value="polkadot">Polkadot</option>
+            <option value="binancecoin">Binance Coin</option>
+            <option value="dogecoin">Dogecoin</option>
+            <option value="usd-coin">USD Coin</option>
+            <option value="uniswap">Uniswap</option>
+            <option value="chainlink">Chainlink</option>
+            <option value="litecoin">Litecoin</option>
+            <option value="avalanche">Avalanche</option>
+            <option value="stellar">Stellar</option>
+            <option value="eos">EOS</option>
+            <option value="wrapped-bitcoin">Wrapped Bitcoin</option>
+            <option value="tezos">Tezos</option>
+            <option value="vechain">VeChain</option>
+            <option value="filecoin">Filecoin</option>
+            <option value="algorand">Algorand</option>
+            <!-- Add more cryptocurrency options here -->
+        </select>
+        <label for="currency">Select Currency:</label>
+        <select id="currency" name="currency">
+            <option value="usd">USD</option>
+            <option value="eur">EUR</option>
+            <option value="inr">INR</option>
+            <option value="gbp">GBP</option>
+            <option value="jpy">JPY</option>
+            <option value="cad">CAD</option>
+            <option value="aud">AUD</option>
+            <option value="chf">CHF</option>
+            <option value="sek">SEK</option>
+            <option value="nzd">NZD</option>
+            <option value="sgd">SGD</option>
+            <option value="hkd">HKD</option>
+            <option value="krw">KRW</option>
+            <option value="cny">CNY</option>
+            <option value="brl">BRL</option>
+            <option value="rub">RUB</option>
+            <option value="try">TRY</option>
+            <option value="zar">ZAR</option>
+            <option value="mxn">MXN</option>
+            <!-- Add more currency options here -->
+        </select>
+        <button type="submit">Check Price</button>
+    </form>
+    <div id="search-history">
+        <!-- User search history will be displayed here -->
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+       const priceForm = document.getElementById('price-form');
+const cryptoPriceDiv = document.getElementById('crypto-price');
+const searchHistoryDiv = document.getElementById('search-history'); // Add this line
+
+async function fetchCryptoPrice(symbol, currency) {
+    try {
+        cryptoPriceDiv.innerHTML = ''; // Clear existing data
+
+        const response = await axios.get(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&ids=${symbol}&order=market_cap_desc&per_page=1&page=1&sparkline=false&locale=en`);
+
+        const crypto = response.data[0]; // Assuming the response provides an array with one cryptocurrency
+
+        // Display crypto price
+        if (crypto) {
+            const cryptoPriceDisplay = document.createElement('p');
+            cryptoPriceDisplay.textContent = `Current Price of ${crypto.name} (${crypto.symbol.toUpperCase()}) in ${currency.toUpperCase()}: ${crypto.current_price}`;
+            cryptoPriceDiv.appendChild(cryptoPriceDisplay);
+
+            // Update search history
+            const searchHistoryItem = document.createElement('p');
+            searchHistoryItem.textContent = `Searched for ${crypto.name} (${crypto.symbol.toUpperCase()}) in ${currency.toUpperCase()}`;
+            searchHistoryDiv.appendChild(searchHistoryItem);
+        } else {
+            cryptoPriceDiv.textContent = 'Crypto not found or data not available.';
+        }
+    } catch (error) {
+        console.error('Error fetching crypto price:', error);
+    }
+}
+
+priceForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const cryptoSymbolSelect = document.getElementById('crypto-symbol');
+    const currencySelect = document.getElementById('currency');
+    const selectedCryptoSymbol = cryptoSymbolSelect.value.trim().toLowerCase();
+    const selectedCurrency = currencySelect.value;
+    fetchCryptoPrice(selectedCryptoSymbol, selectedCurrency);
+});
+
+    </script>
+</body>
+</html>

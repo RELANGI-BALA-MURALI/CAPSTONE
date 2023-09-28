@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            position: relative;
+            background-image: url('bg-fotor-20230922223745.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-color: #f0f0f0 rgba(0, 0, 0, 0.2); /* Fallback background color */
+        }
+        
+        /* Header styles */
+        header {
+            background-color: #f8fafc;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        /* Navigation styles */
+        nav {
+            background-color: #444;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 20px;
+        }
+        
+        /* Container styles */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.3); /* Semi-transparent white background */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Drop shadow */
+            margin-top: 20px;
+        }
+        
+        /* Button styles */
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        
+        .button:hover {
+            background-color: #0056b3;
+        }
+        
+        /* Profile and logout styles */
+        .profile-logout {
+            text-align: right;
+            margin-top: 10px;
+        }
+        
+        .profile-logout a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+        
+        .profile-logout a.logout-button {
+            background-color: #dc3545;
+        }
+        
+        .profile-logout a.logout-button:hover {
+            background-color: #c82333;
+        }
+        
+        /* Profile icon styles */
+        .profile-icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        
+        /* Video container styles */
+        .video-container {
+            margin-bottom: 20px;
+        }
+        
+        /* Bubble animation styles */
+        .bubble-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 10%;
+            height: 10%;
+            pointer-events: none;
+            z-index: -1;
+            animation: bubbles 20s radial infinite;
+        }
+        
+        /* Keyframes for bubble animation and individual bubbles */
+        @keyframes bubbles {
+            0% {
+                transform: translateY(30%);
+            }
+            40% {
+                transform: translateY(-40%);
+            }
+        }
+        
+        /* Pseudo-elements for individual bubbles */
+        .bubble-container::before,
+        .bubble-container::after {
+            content: "";
+            position: absolute;
+            border-radius: 10%;
+            background-color: rgba(20, 154, 237, 0.3);
+        }
+        
+        /* Add some colors to your headings and paragraphs */
+        h2 {
+            color: #fbf7f7;
+        }
+        h3, p {
+            color: #000;
+        }
+        h1{
+            color: rebeccapurple;
+        }
+
+        
+        /* Add a background color and padding to your sections */
+        .section {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Add some color to your links */
+        a {
+            color: #007bff;
+        }
+        
+        a:hover {
+            color: #0056b3;
+        }
+            </style>
+</head>
+<body>
+<header>
+    <h1>Crypto Buddy</h1>
+    <div class="profile-logout">
+        <a href="#">
+            <span class="profile-icon">👤</span> <!-- You can replace this with your profile icon -->
+            Your Username <!-- Replace with the user's username -->
+        </a>
+        <a href="http://localhost:3000/" class="logout-button">Logout</a>
+    </div>
+</header>
+<nav position="toFixed">
+    <a href="#">Dashboard</a>
+    <a href="/market.html">Market</a>
+    <a href="/exchanger.html">Exchanger</a>
+    <a href="#about" onclick="showSection('about')">About</a>
+    <a href="#contact" onclick="showSection('contact')">Contact</a>
+    <a href="https://prices.org/#:~:text=Cryptocurrency%20Prices%20Live%20%20%20%20Rank%20,%20%20%24215.42%20%2019%20more%20rows%20">live</a>
+</nav>
+
+
+
+  <div class="container">
+      <h2 >Welcome to the Crypto Dashboard!</h2>
+      <p>Track your favorite cryptocurrencies and stay updated with the latest trends.</p>
+
+      <div class="video-container">
+          <video width="100%" controls>
+              <source src="crypto.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+          </video>
+      </div>
+      <!-- About Section -->
+    <div id="about" class="section">
+    <h3>About Us</h3>
+    <p>Welcome to CryptoDash, your ultimate cryptocurrency dashboard! At CryptoDash, we are passionate about providing you with real-time information and insights about the exciting world of cryptocurrencies. Whether you're a seasoned trader or just getting started, our platform aims to keep you updated with the latest market trends, news, and prices of various cryptocurrencies. Explore our site, track your favorite coins, and stay ahead in the crypto game!</p>
+    </div>
+
+<!-- Contact Section -->
+    <div id="contact" class="section">
+    <h3>Contact Us</h3>
+    <p>If you have any questions, feedback, or suggestions, feel free to reach out to us. We'd love to hear from you!</p>
+    <ul>
+        <li>Email: contact@cryptodash.com</li>
+        <li>Phone: +1-123-456-7890</li>
+        <li>Follow us on <a href="https://twitter.com/CryptoDash" target="_blank">Twitter</a></li>
+        <li>Connect with us on <a href="https://www.linkedin.com/company/cryptodash" target="_blank">LinkedIn</a></li>
+    </ul>
+    </div>
+
+   
+    <div class="bubble-container"></div>
+
+   
+      
+      
+      
+<script>
+    
+    function searchCrypto() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const cryptoMarketDiv = document.getElementById('crypto-market-data');
+            cryptoMarketDiv.innerHTML = '';
+
+            // Fetch and filter data from JSON file (replace with actual data retrieval)
+            axios.get("C:\Users\Bala Murali\Desktop\final FSWD\public\response_1693132356996.json")  // Replace with the actual path to your JSON file
+                .then(response => {
+                    const cryptoMarketData = response.data.filter(crypto => {
+                        return crypto.name.toLowerCase().includes(searchInput) || crypto.symbol.toLowerCase().includes(searchInput);
+                    });
+
+                    cryptoMarketData.forEach(crypto => {
+                        const cryptoDiv = document.createElement('div');
+                        cryptoDiv.innerHTML = `
+                            <h2>${crypto.name} (${crypto.symbol.toUpperCase()})</h2>
+                            <p>Price: ₹${crypto.current_price}</p>
+                            <p>Market Cap: ₹${crypto.market_cap}</p>
+                            <p>24h Change: ${crypto.price_change_percentage_24h.toFixed(2)}%</p>
+                        `;
+                        cryptoMarketDiv.appendChild(cryptoDiv);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching crypto data from JSON:', error);
+                });
+        }
+
+
+    fetchCryptoMarketData();
+
+    const bubbleContainer = document.querySelector('.bubble-container');
+
+    function createBubble() {
+        const bubble = document.createElement('div');
+        bubble.className = 'bubble';
+        bubble.style.width = `${Math.random() * 20 + 10}px`;
+        bubble.style.height = bubble.style.width;
+        bubble.style.left = `${Math.random() * 100}%`;
+        bubble.style.animationDuration = `${Math.random() * 10 + 5}s, ${Math.random() * 20 + 10}s`;
+        bubbleContainer.appendChild(bubble);
+
+        bubble.addEventListener('animationiteration', () => {
+            bubble.remove();
+        });
+    }
+
+    setInterval(createBubble, 2000);
+</script>
+
+          </body>
+</html>
